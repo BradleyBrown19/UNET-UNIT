@@ -119,6 +119,13 @@ class EncoderDecoder(nn.Module):
 
         return self.finalDecoderB(xb)
 
+    def get_noise(self):
+        #only add noise during training
+        if self.training:
+            return 0
+
+        return 0
+
     def forward(self, a, b, *pred):
 
         #get initial encodings of both
@@ -128,8 +135,14 @@ class EncoderDecoder(nn.Module):
         a,b = self.sharedEncoder(a), self.sharedEncoder(b)
         a,b = self.middleConv(a), self.middleConv(b)
 
+        #get latent representation of inputs
+        hid_a, hid_b = a,b
+
+        #get noise for reparameratization trick
+        noise_a, noise_b = torch.randn(hid_a.size()).cuda(), torch.randn(hid_b.size()).cuda()
+
         #put images through shared decoder
-        a,b = self.sharedDecoder(a), self.sharedDecoder(b)
+        a,b = self.sharedDecoder(a + noise_a), self.sharedDecoder(b + noise_b)
 
         #Get images that are supposed to be
         aToA, bToB = self.DecoderA(a, body=self.sfsA),self.DecoderB(b, body=self.sfsB)
@@ -137,6 +150,6 @@ class EncoderDecoder(nn.Module):
         #Get switched images
         aToB, bToA = self.DecoderB(a, body=self.sfsA), self.DecoderA(b, body=self.sfsB)
 
-        allIm = torch.cat((self.tanLayer(aToA), self.tanLayer(bToB), self.tanLayer(aToB), self.tanLayer(bToA)), 0)
+        allIm = torch.cat((self.tanLayer(aToA), self.tanLayer(bToB), self.tanLayer(aToB), self.tanLayer(bToA), hid_a, hid_b), 0)
 
         return allIm

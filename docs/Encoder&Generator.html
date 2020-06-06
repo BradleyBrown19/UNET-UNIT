@@ -128,6 +128,13 @@ sidebar: home_sidebar
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finalDecoderB</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
     
+    <span class="k">def</span> <span class="nf">get_noise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1">#only add noise during training</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        
+        <span class="k">return</span> <span class="mi">0</span>
+    
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">pred</span><span class="p">):</span>
         
         <span class="c1">#get initial encodings of both</span>
@@ -137,8 +144,14 @@ sidebar: home_sidebar
         <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedEncoder</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedEncoder</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
         <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">middleConv</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">middleConv</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
         
+        <span class="c1">#get latent representation of inputs</span>
+        <span class="n">hid_a</span><span class="p">,</span> <span class="n">hid_b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+        
+        <span class="c1">#get noise for reparameratization trick</span>
+        <span class="n">noise_a</span><span class="p">,</span> <span class="n">noise_b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">hid_a</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">hid_b</span><span class="o">.</span><span class="n">size</span><span class="p">())</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+        
         <span class="c1">#put images through shared decoder</span>
-        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedDecoder</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedDecoder</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedDecoder</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">noise_a</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sharedDecoder</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">noise_b</span><span class="p">)</span>
         
         <span class="c1">#Get images that are supposed to be</span>
         <span class="n">aToA</span><span class="p">,</span> <span class="n">bToB</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DecoderA</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sfsA</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">DecoderB</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sfsB</span><span class="p">)</span>
@@ -146,7 +159,7 @@ sidebar: home_sidebar
         <span class="c1">#Get switched images</span>
         <span class="n">aToB</span><span class="p">,</span> <span class="n">bToA</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DecoderB</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sfsA</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">DecoderA</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sfsB</span><span class="p">)</span>
     
-        <span class="n">allIm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">aToA</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">bToB</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">aToB</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">bToA</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">allIm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">aToA</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">bToB</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">aToB</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">tanLayer</span><span class="p">(</span><span class="n">bToA</span><span class="p">),</span> <span class="n">hid_a</span><span class="p">,</span> <span class="n">hid_b</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="n">allIm</span>
     

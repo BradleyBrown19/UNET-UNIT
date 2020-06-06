@@ -61,24 +61,37 @@ class GANLoss(GANModule):
 
     def generator(self, output, x_a, x_b):
         "Evaluate the `output` with the critic then uses `self.loss_funcG` to combine it with `target`."
-        output = torch.split(output, 2, dim=0)
+        output = torch.split(output, 3, dim=0)
+
+        #get recon and translated images for critic
         x_a_recon, x_b_recon = torch.split(output[0], 1, dim=0)
         x_ab, x_ba = torch.split(output[1], 1, dim=0)
+
+        #get critic predictions
         fake_pred_x_aa, fake_pred_x_bb = self.gan_model.critic(x_a_recon, x_b_recon)
         fake_pred_x_ab, fake_pred_x_ba = self.gan_model.critic(x_ab, x_ba)
 
+        #get latent distribution
+        hid_a, hid_b = torch.split(output[3], 1, dim=0)
+
+        #cycle back
         cycled_output = self.gan_model.generator(x_ba, x_ab)
         cycle_a = cycled_output[3]
         cycle_b = cycled_output[2]
-        return self.loss_funcG(x_a, x_b, x_a_recon, x_b_recon, cycle_a, cycle_b, fake_pred_x_ab, fake_pred_x_ba)
+
+        return self.loss_funcG(x_a, x_b, x_a_recon, hid_a, hid_b, x_b_recon, cycle_a, cycle_b, fake_pred_x_ab, fake_pred_x_ba)
 
     def critic(self, real_pred, b, c):
+        #get fakes
         fake = self.gan_model.generator(b.requires_grad_(False), c.requires_grad_(False)).requires_grad_(True)
         fake = torch.split(fake, 2, dim=0)
         fake_ns = torch.split(fake[0], 1, dim=0)
         fake_s = torch.split(fake[1], 1, dim=0)
+
+        #get critic predictions
         fake_pred_aToA, fake_pred_bToB = self.gan_model.critic(fake_ns[0], fake_ns[1])
         fake_pred_aToB, fake_pred_bToA = self.gan_model.critic(fake_s[0], fake_s[1])
+
         return self.loss_funcC(real_pred[0], real_pred[1], fake_pred_aToA, fake_pred_bToB, fake_pred_aToB, fake_pred_bToA)
 
 # Cell

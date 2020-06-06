@@ -29,8 +29,28 @@ description: "A modified deep learning architecture for very fast image 2 image 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="/UNET-UNIT/./winter2summer.png" alt="Winter to summer example">
-<img src="/UNET-UNIT/./animation2la.png" alt="Live action to animation example"></p>
+<h1 id="UNET-UNIT">UNET-UNIT<a class="anchor-link" href="#UNET-UNIT"> </a></h1><blockquote><p>A modified deep learning architecture for very fast image 2 image translation</p>
+</blockquote>
+<h2 id="What-is-a-UNET-UNIT??">What is a UNET-UNIT??<a class="anchor-link" href="#What-is-a-UNET-UNIT??"> </a></h2><p>Great question! The goal of the architecture is to take images that are in different domains such as summer/winter, zebra/horses and learn a mapping from one image to another. A full explanation of the architecture can be found <a href="https://medium.com/@theehiproject/unet-unit-for-fast-unsupervised-image2image-translation-using-fastai-e366408eddb4">here</a></p>
+<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2><ol>
+<li><p>Clone the repo: 
+<code>https://github.com/BradleyBrown19/UNET-UNIT.git</code></p>
+</li>
+<li><p>Open notebook Train.ipynb</p>
+</li>
+<li><p>Change path variable to location of dataset</p>
+<blockquote><p>Dataset should be organized by having a folder containing two directories called TrainA, TrainB
+<img src="/pyfiles/images/path_var.png" alt="path variable"></p>
+</blockquote>
+</li>
+<li><p>Run the rest of the cells and watch the magic happen!</p>
+</li>
+</ol>
+<h2 id="Some-results">Some results<a class="anchor-link" href="#Some-results"> </a></h2><blockquote><p>After 2 epochs of training, approximately 5k iterations</p>
+</blockquote>
+<p><img src="/pyfiles/images/winter2summer.png" alt="Winter to summer example">
+<img src="/pyfiles/images/animation2la.png" alt="Live action to animation example"></p>
+<h2 id="Credits">Credits<a class="anchor-link" href="#Credits"> </a></h2><p>This architecture is based off of <a href="https://github.com/mingyuliutw/UNIT/tree/25e99afe267df6eea2c97d23b05a42683d75e53c">NVIDIA's UNIT</a> and lots of inspiration was drawn from the <a href="https://www.fast.ai/">fastai library</a>.</p>
 
 </div>
 </div>
@@ -38,15 +58,6 @@ description: "A modified deep learning architecture for very fast image 2 image 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Clone the repo: 
-<code>https://github.com/BradleyBrown19/UNET-UNIT.git</code></p>
-<p>Run cells in 'Train.ipynb' notebook, replacing path with desidered dataset</p>
-
 </div>
 </div>
 </div>
