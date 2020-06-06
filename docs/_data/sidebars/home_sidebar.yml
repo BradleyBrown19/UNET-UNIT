@@ -7,24 +7,24 @@ entries:
 - folders:
   - folderitems:
     - output: web,pdf
-      title: Export to modules
-      url: /export.html
+      title: Overview
+      url: /
     - output: web,pdf
-      title: Convert to html
-      url: /export2html.html
+      title: Building Blocks
+      url: /BuildingBlocks
     - output: web,pdf
-      title: Show doc
-      url: /showdoc.html
+      title: Custom DataBunch Object
+      url: /UNET-UNIT_dev
     - output: web,pdf
-      title: Test functions
-      url: /test.html
+      title: Title
+      url: /Discriminator
     - output: web,pdf
-      title: Core functions
-      url: /core.html
+      title: Encoder / Decoder Module
+      url: /Encoder&Generator
     - output: web,pdf
-      title: Command line functions
-      url: /cli.html
+      title: Training
+      url: /Training
     output: web
-    title: Notebook
+    title: nbdev_template
   output: web
   title: Sidebar
