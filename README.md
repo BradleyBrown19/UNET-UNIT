@@ -30,5 +30,3 @@ Great question! The goal of the architecture is to take images that are in diffe
 ## Credits
 
 This architecture is based off of [NVIDIA's UNIT](https://github.com/mingyuliutw/UNIT/tree/25e99afe267df6eea2c97d23b05a42683d75e53c) and lots of inspiration was drawn from the [fastai library](https://www.fast.ai/).
-
-## How to use
