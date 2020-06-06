@@ -1,5 +1,5 @@
 {
-  "nbdev_template": {
+  "UNET-UNIT": {
     "Overview": "/",
     "Building Blocks": "/BuildingBlocks",
     "Custom DataBunch Object": "/UNET-UNIT_dev",

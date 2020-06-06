@@ -10,4 +10,4 @@
 Clone the repo: 
 ```https://github.com/BradleyBrown19/UNET-UNIT.git```
 
-Run cells in 'Train.ipynb' notebook, replacing path with desidered datasetom/BradleyBrown19/UNET-UNIT.git```
+Run cells in 'Train.ipynb' notebook, replacing path with desidered dataset

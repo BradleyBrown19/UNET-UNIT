@@ -25,6 +25,6 @@ entries:
       title: Training
       url: /Training
     output: web
-    title: nbdev_template
+    title: UNET-UNIT
   output: web
   title: Sidebar
