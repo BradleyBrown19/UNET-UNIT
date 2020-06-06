@@ -30,26 +30,25 @@ sidebar: home_sidebar
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fastai</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">fastai.vision</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">fastai.callbacks</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">fastai.utils.mem</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">fastai.vision.gan</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Get Data</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1">#Replace this path with your own data folder</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">/</span><span class="s1">&#39;horse2zebra&#39;</span>
 
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data.dataset</span> <span class="kn">import</span> <span class="n">TensorDataset</span>
-<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="c1">#TrainA and TrainB are folders where different domain images are in the different folders</span>
+<span class="n">data_list</span> <span class="o">=</span> <span class="n">DoubleImageList</span><span class="o">.</span><span class="n">from_folders</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;trainA&#39;</span><span class="p">,</span> <span class="s1">&#39;trainB&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split_by_rand_pct</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">label_from_folder</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ImageDataBunch</span><span class="o">.</span><span class="n">create_from_ll</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="n">bs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">224</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -66,10 +65,43 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">generator</span> <span class="o">=</span> <span class="n">MultiUnet</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">resnet34</span><span class="p">)</span>
-<span class="n">multiGan</span> <span class="o">=</span> <span class="n">GANLearner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">generator</span> <span class="o">=</span> <span class="n">EncoderDecoder</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">resnet34</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">critic</span> <span class="o">=</span> <span class="n">MultiUNITDiscriminator</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uu_learner</span> <span class="o">=</span> <span class="n">UNET_UNIT</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
                       <span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">,</span>
-                      <span class="n">critic</span><span class="o">=</span><span class="n">critic_learner</span><span class="o">.</span><span class="n">model</span><span class="p">,</span>
+                      <span class="n">critic</span><span class="o">=</span><span class="n">critic</span><span class="p">,</span>
                       <span class="n">gen_loss_func</span><span class="o">=</span><span class="n">gen_loss</span><span class="p">(),</span>
                       <span class="n">crit_loss_func</span><span class="o">=</span><span class="n">disc_loss</span><span class="p">(),</span> <span class="n">opt_func</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.99</span><span class="p">)))</span>
 </pre></div>
@@ -88,24 +120,7 @@ sidebar: home_sidebar
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">multiGan</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">multiGan</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;v5-trial1&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uu_learner</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 
     </div>

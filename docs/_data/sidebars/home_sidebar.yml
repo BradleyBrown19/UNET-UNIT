@@ -14,17 +14,26 @@ entries:
       url: /BuildingBlocks
     - output: web,pdf
       title: Custom DataBunch Object
-      url: /UNET-UNIT_dev
+      url: /DataBunch
     - output: web,pdf
-      title: Title
+      title: Discriminator
       url: /Discriminator
     - output: web,pdf
       title: Encoder / Decoder Module
       url: /Encoder&Generator
     - output: web,pdf
+      title: Losses
+      url: /Losses
+    - output: web,pdf
+      title: Results
+      url: /Results
+    - output: web,pdf
+      title: Training Wrapper
+      url: /TrainLoop
+    - output: web,pdf
       title: Training
       url: /Training
     output: web
-    title: UNET-UNIT
+    title: pyfiles
   output: web
   title: Sidebar
