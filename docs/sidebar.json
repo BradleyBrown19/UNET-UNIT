@@ -1,5 +1,5 @@
 {
-  "pyfiles": {
+  "UNET_UNIT": {
     "Overview": "/",
     "Building Blocks": "/BuildingBlocks",
     "Custom DataBunch Object": "/DataBunch",

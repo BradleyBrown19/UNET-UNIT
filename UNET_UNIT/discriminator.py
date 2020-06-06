@@ -25,7 +25,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data.dataset import TensorDataset
 import pdb
 
-from .building_blocks import *
+from pyfiles.building_blocks import *
 
 # Cell
 class MultiUNITDiscriminator(nn.Module):

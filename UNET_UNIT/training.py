@@ -20,8 +20,8 @@ from torch.utils.data import DataLoader
 from torch.utils.data.dataset import TensorDataset
 import pdb
 
-from .encoder_generator import EncoderDecoder
-from .train_loop import *
-from .data_bunch import *
-from .losses import *
-from .discriminator import *
+from pyfiles.encoder_generator import EncoderDecoder
+from pyfiles.train_loop import *
+from pyfiles.data_bunch import *
+from pyfiles.losses import *
+from pyfiles.discriminator import *

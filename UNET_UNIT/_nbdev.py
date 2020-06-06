@@ -31,8 +31,8 @@ modules = ["building_blocks.py",
            "train_loop.py",
            "training.py"]
 
-doc_url = "https://BradleyBrown19.github.io/pyfiles/"
+doc_url = "https://BradleyBrown19.github.io/UNET_UNIT/"
 
-git_url = "https://github.com/BradleyBrown19/pyfiles/tree/master/"
+git_url = "https://github.com/BradleyBrown19/UNET_UNIT/tree/master/"
 
 def custom_doc_links(name): return None
