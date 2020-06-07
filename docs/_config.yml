@@ -1,6 +1,6 @@
 repository: BradleyBrown19/UNET-UNIT
 output: web
-topnav_title: image to image translation
+topnav_title: Home
 site_title: UNET-UNIT
 company_name: BradleyBrown19
 description: Refactored implementation of UNET-UNIT, custom architecture for image to image domain translation.
