@@ -21,7 +21,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data.dataset import TensorDataset
 import pdb
 
-from .losses import *
+from pyfiles.losses import *
 
 # Cell
 class UNET_UNIT(Learner):

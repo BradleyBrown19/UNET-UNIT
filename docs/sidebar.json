@@ -1,12 +1,13 @@
 {
-  "Components": {
-    "Building Blocks": "BuildingBlocks",
-    "Custom DataBunch Object": "DataBunch",
-    "Discriminator": "Discriminator",
-    "Encoder / Decoder Module": "Encoder&Generator",
-    "Losses": "Losses",
-    "Results": "Results",
-    "Training Wrapper": "TrainLoop",
-    "Training": "Training"
+  "UNET_UNIT": {
+    "Overview": "/",
+    "Building Blocks": "/BuildingBlocks",
+    "Custom DataBunch Object": "/DataBunch",
+    "Discriminator": "/Discriminator",
+    "Encoder / Decoder Module": "/Encoder&Generator",
+    "Losses": "/Losses",
+    "Results": "/Results",
+    "Training Wrapper": "/TrainLoop",
+    "Training": "/Training"
   }
 }

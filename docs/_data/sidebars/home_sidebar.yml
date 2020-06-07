@@ -34,6 +34,6 @@ entries:
       title: Training
       url: /Training
     output: web
-    title: pyfiles
+    title: UNET_UNIT
   output: web
   title: Sidebar
