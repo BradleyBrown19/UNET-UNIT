@@ -1,9 +1,11 @@
 # UNET-UNIT
-> A modified deep learning architecture for very fast image 2 image translation
+> A modified deep learning architecture for very fast image 2 image translation, based primarily off of NVIDIA's UNIT
+
 
 ## What is a UNET-UNIT??
 
 Great question! The goal of the architecture is to take images that are in different domains such as summer/winter, zebra/horses and learn a mapping from one image to another. A full explanation of the architecture can be found [here](https://medium.com/@theehiproject/unet-unit-for-fast-unsupervised-image2image-translation-using-fastai-e366408eddb4)
+
 ## How to use
 
 1. Clone the repo: 

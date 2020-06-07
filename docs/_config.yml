@@ -1,7 +1,7 @@
-repository: fastai/nbdev_template
+repository: BradleyBrown19/UNET-UNIT
 output: web
-topnav_title: nbdev_template
-site_title: nbdev_template
+topnav_title: image to image translation
+site_title: UNET-UNIT
 company_name: BradleyBrown19
 description: Refactored implementation of UNET-UNIT, custom architecture for image to image domain translation.
 # Set to false to disable KaTeX math
@@ -61,4 +61,4 @@ sidebars:
 permalink: pretty
 
 theme: jekyll-theme-cayman
-baseurl: /UNET_UNIT/
+baseurl: /pyfiles/
