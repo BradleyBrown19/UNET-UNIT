@@ -1,4 +1,4 @@
-repository: BradleyBrown19/UNET_UNIT
+repository: BradleyBrown19/UNET-UNIT
 output: web
 topnav_title: UNET_UNIT
 site_title: UNET_UNIT
@@ -61,4 +61,4 @@ sidebars:
 permalink: pretty
 
 theme: jekyll-theme-cayman
-baseurl: /UNET_UNIT/
+baseurl: /UNET-UNIT
